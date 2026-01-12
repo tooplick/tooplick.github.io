@@ -34,6 +34,24 @@ npm run docs:build
 - 支持 i18n 中英文切换
 - GitHub Actions 自动部署
 
+## 部署
+
+### GitHub Pages
+
+1. Fork 本仓库
+2. 进入 **Settings** → **Pages** → **Source** 选择 **GitHub Actions**
+3. 推送代码后自动部署
+
+### Cloudflare Pages
+
+1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com)
+2. 进入 **Workers & Pages** → **Create** → **Pages** → **Connect to Git**
+3. 选择仓库并配置：
+   - **Framework preset**: `None`
+   - **Build command**: `npm run docs:build`
+   - **Build output directory**: `docs/.vitepress/dist`
+4. 点击 **Save and Deploy**
+
 ## 许可证
 
 MIT License
