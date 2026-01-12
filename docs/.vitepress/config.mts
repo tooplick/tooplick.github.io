@@ -4,7 +4,7 @@ export default defineConfig({
   title: "QQ music api",
   description: "QQ音乐项目文档",
   head: [
-    ['link', { rel: 'icon', href: '/images/favicon.png', type: 'image/png' }]
+    ['link', { rel: 'icon', href: '/favicon.png', type: 'image/png' }]
   ],
 
   locales: {
