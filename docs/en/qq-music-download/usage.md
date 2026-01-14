@@ -1,64 +1,50 @@
 # Usage Guide
 
-## 1. Login & Credential Management
+How to use QQ Music Downloader.
 
-First, run the credential management tool to login:
-
-```bash
-python credential.py
-```
-
-Follow the prompts to scan QR code with QQ or WeChat.
-
-## 2. Single Song Download
+## Single Song
 
 ```bash
 python song.py
 ```
 
-Enter the song name when prompted and select the song to download.
+1. Select quality (`y` = FLAC, `n` = MP3)
+2. Enter song name to search
+3. Select number to download
 
-## 3. Playlist Download
+## Playlist
 
 ```bash
 python songlist.py
 ```
 
-Enter the playlist link or ID to batch download the entire playlist.
+1. Enter playlist link or ID
+2. Confirm download
+3. Select quality
 
-## Audio Quality
+Supported formats:
+- ID: `8052190267`
+- URL: `https://y.qq.com/n/ryqq/playlist/8052190267`
 
-### High Quality Mode (FLAC Priority)
-
-Download order: FLAC → MP3_320 → MP3_128
-
-Prioritizes lossless quality, automatically downgrades when FLAC is unavailable.
-
-### Standard Mode (MP3 Priority)
-
-Download order: MP3_320 → MP3_128
-
-Prioritizes high-quality MP3.
-
-## File Description
-
-| File | Description |
-|------|-------------|
-| `song.py` | Single song search and download |
-| `songlist.py` | Playlist download |
-| `credential.py` | Login and credential management |
-| `qqmusic_cred.pkl` | Login credentials (auto-generated) |
-
-## Troubleshooting
-
-If you encounter errors, try:
+## Credentials
 
 ```bash
-pip install qqmusic-api-python flask aiohttp mutagen
+python credential.py
 ```
 
-Linux users also need:
+Functions: Login / Check status / Refresh
 
-```bash
-sudo apt update && sudo apt install libzbar0 libzbar-dev
-```
+## Output
+
+- Location: `./music/` or `./music/{playlist}/`
+- Naming: `Artist - Song.format`
+- Metadata: lyrics, cover, album info
+
+## Quality
+
+| Mode | Priority |
+|------|----------|
+| High (y) | FLAC → MP3_320 → MP3_128 |
+| Standard (n) | MP3_320 → MP3_128 |
+
+👉 See [Configuration](./config)

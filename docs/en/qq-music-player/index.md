@@ -1,42 +1,52 @@
 # QQ-Music-Player
 
-A modern rewrite of the QQ Music Web Player, designed for **Cloudflare Pages** with a pure frontend + Serverless architecture.
+QQ Music Web Player - Serverless Edition for Cloudflare Pages.
 
-## Features
+**🌐 Live Demo**: [qq.ygking.top](https://qq.ygking.top)
 
-- ✅ **Pure Frontend Architecture**: Static assets hosted on Cloudflare Pages
-- ✅ **Serverless Backend**: Uses Cloudflare Functions for API proxy and request signing
-- ✅ **Ultimate Performance**: Smart preloading, auto-prefetch next song lyrics for zero-delay switching
-- ✅ **Privacy & Security**: Proxy requests through Cloudflare, hide real IP
-- ✅ **PWA Support**: Service Worker offline caching
+## 🌟 Features
 
-## Project Structure
+- ✅ **Pure Frontend** - Static assets on Cloudflare Pages
+- ✅ **Serverless Backend** - Cloudflare Functions
+- ✅ **D1 Storage** - Secure credential storage
+- ✅ **Smart Preloading** - Prefetch next song lyrics
+- ✅ **PWA Support** - Installable as desktop app
+
+## 🚀 Quick Start
+
+1. Fork [GitHub repo](https://github.com/tooplick/QQ-Music-Player)
+2. Create D1 database `qqmusic-credentials`
+3. Create Pages project and bind D1
+4. Set `INITIAL_CREDENTIAL` env variable
+
+👉 See [Deployment Guide](./deploy)
+
+## 💻 Development
+
+```bash
+npm install -g wrangler
+wrangler pages dev .
+```
+
+👉 See [Development Guide](./development)
+
+## 📁 Structure
 
 ```
-.
-├── functions/              # Cloudflare Functions (backend proxy)
-│   └── api/
-│       ├── index.js        # General API proxy (CORS & Cookie handling)
-│       └── lyric_proxy.js  # Lyrics-specific proxy
-├── js/
-│   ├── api/                # API wrapper layer
-│   ├── utils/              # Utility functions
-│   └── app.js              # Core business logic
-├── css/                    # Stylesheets
-├── images/                 # Image assets
-├── index.html              # App entry point
-└── sw.js                   # Service Worker
+QQ-Music-Player/
+├── functions/       # Cloudflare Functions
+├── js/              # Frontend scripts
+├── css/             # Styles
+├── index.html       # Entry
+└── sw.js            # Service Worker
 ```
 
-## Quick Start
+## 🔐 Credentials
 
-::: tip
-This is a Serverless project. Simply deploy to Cloudflare Pages - no server required.
-:::
+See [qq-music-api Credentials](/en/qq-music-api/credential)
 
-Go to [Deployment Guide](/en/qq-music-player/deploy) to learn how to deploy to Cloudflare Pages.
+## 🔗 Links
 
-## Source Code
-
-- **GitHub**: [tooplick/QQ-Music-Player](https://github.com/tooplick/QQ-Music-Player)
-- **License**: GPL-3.0
+- [Live Demo](https://qq.ygking.top)
+- [GitHub](https://github.com/tooplick/QQ-Music-Player)
+- [QQ Music API](/en/qq-music-api/)

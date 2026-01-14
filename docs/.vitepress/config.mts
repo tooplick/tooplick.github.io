@@ -16,8 +16,23 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: '首页', link: '/' },
+          { text: 'QQ Music API', link: '/qq-music-api/' },
+          { text: 'Web播放器', link: '/qq-music-player/' },
+          { text: 'Nekro插件', link: '/nekro-order-qqmusic/' },
+          { text: '下载器', link: '/qq-music-download/' },
         ],
         sidebar: {
+          '/qq-music-api/': [
+            {
+              text: 'QQ Music API',
+              items: [
+                { text: '介绍', link: '/qq-music-api/' },
+                { text: '部署指南', link: '/qq-music-api/deploy' },
+                { text: 'API接口', link: '/qq-music-api/api' },
+                { text: '凭证获取', link: '/qq-music-api/credential' }
+              ]
+            }
+          ],
           '/qq-music-player/': [
             {
               text: 'QQ-Music-Player',
@@ -33,7 +48,8 @@ export default defineConfig({
               text: 'Nekro QQ音乐点歌',
               items: [
                 { text: '介绍', link: '/nekro-order-qqmusic/' },
-                { text: 'API接口', link: '/nekro-order-qqmusic/api' }
+                { text: '配置说明', link: '/nekro-order-qqmusic/config' },
+                { text: 'Web登录', link: '/nekro-order-qqmusic/login' }
               ]
             }
           ],
@@ -42,17 +58,8 @@ export default defineConfig({
               text: 'QQ音乐下载器',
               items: [
                 { text: '介绍', link: '/qq-music-download/' },
-                { text: '使用指南', link: '/qq-music-download/usage' }
-              ]
-            }
-          ],
-          '/qqmusic-web/': [
-            {
-              text: 'QQMusic Web',
-              items: [
-                { text: '介绍', link: '/qqmusic-web/' },
-                { text: '部署指南', link: '/qqmusic-web/deploy' },
-                { text: 'API接口', link: '/qqmusic-web/api' }
+                { text: '使用指南', link: '/qq-music-download/usage' },
+                { text: '配置说明', link: '/qq-music-download/config' }
               ]
             }
           ]
@@ -70,8 +77,23 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Home', link: '/en/' },
+          { text: 'QQ Music API', link: '/en/qq-music-api/' },
+          { text: 'Web Player', link: '/en/qq-music-player/' },
+          { text: 'Nekro Plugin', link: '/en/nekro-order-qqmusic/' },
+          { text: 'Downloader', link: '/en/qq-music-download/' },
         ],
         sidebar: {
+          '/en/qq-music-api/': [
+            {
+              text: 'QQ Music API',
+              items: [
+                { text: 'Introduction', link: '/en/qq-music-api/' },
+                { text: 'Deployment', link: '/en/qq-music-api/deploy' },
+                { text: 'API Reference', link: '/en/qq-music-api/api' },
+                { text: 'Credentials', link: '/en/qq-music-api/credential' }
+              ]
+            }
+          ],
           '/en/qq-music-player/': [
             {
               text: 'QQ-Music-Player',
@@ -87,7 +109,8 @@ export default defineConfig({
               text: 'Nekro QQ Music Plugin',
               items: [
                 { text: 'Introduction', link: '/en/nekro-order-qqmusic/' },
-                { text: 'API Reference', link: '/en/nekro-order-qqmusic/api' }
+                { text: 'Configuration', link: '/en/nekro-order-qqmusic/config' },
+                { text: 'Web Login', link: '/en/nekro-order-qqmusic/login' }
               ]
             }
           ],
@@ -96,17 +119,8 @@ export default defineConfig({
               text: 'QQ Music Downloader',
               items: [
                 { text: 'Introduction', link: '/en/qq-music-download/' },
-                { text: 'Usage Guide', link: '/en/qq-music-download/usage' }
-              ]
-            }
-          ],
-          '/en/qqmusic-web/': [
-            {
-              text: 'QQMusic Web',
-              items: [
-                { text: 'Introduction', link: '/en/qqmusic-web/' },
-                { text: 'Deployment', link: '/en/qqmusic-web/deploy' },
-                { text: 'API Reference', link: '/en/qqmusic-web/api' }
+                { text: 'Usage Guide', link: '/en/qq-music-download/usage' },
+                { text: 'Configuration', link: '/en/qq-music-download/config' }
               ]
             }
           ]

@@ -7,12 +7,16 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /en/qq-music-player/
+      link: /en/qq-music-api/
     - theme: alt
       text: GitHub
       link: https://github.com/tooplick
 
 features:
+  - icon: 🔌
+    title: QQ Music API
+    details: QQ Music API service based on Cloudflare Workers + D1, supporting search, songs, lyrics, albums and more.
+    link: /en/qq-music-api/
   - icon: 🎵
     title: QQ-Music-Player
     details: Modern QQ Music Web Player, Serverless Edition built on Cloudflare Pages.
@@ -25,8 +29,4 @@ features:
     title: QQ Music Downloader
     details: Python CLI tool for downloading songs and playlists from QQ Music.
     link: /en/qq-music-download/
-  - icon: 🌐
-    title: QQMusic Web
-    details: Flask-based online music player with Docker one-click deployment.
-    link: /en/qqmusic-web/
 ---

@@ -1,48 +1,49 @@
 # QQ Music Downloader
 
-A Python-based QQ Music download tool supporting single song search and playlist batch download.
+Python-based QQ Music download tool.
 
-## Features
+## 🌟 Features
 
-- 📥 **Single Song Download** - Search and download individual songs
-- 📋 **Playlist Download** - Download entire public playlists
-- 🔐 **Login Support** - QQ/WeChat login for VIP songs
-- 🎵 **Multiple Quality Options** - FLAC, MP3_320, MP3_128
-- 🔑 **Unified Credential Management** - Login, check, refresh in one place
+- 🎵 **Single Song** - Search and download songs
+- 📋 **Playlist** - Batch download playlists
+- 🔐 **Login** - QQ/WeChat login for VIP songs
+- 🎧 **Multi-Quality** - FLAC / MP3_320 / MP3_128
+- 📝 **Metadata** - Auto-add lyrics, cover, album info
 
-## System Requirements
+## 🚀 Quick Start
 
-- Python 3.10+
-- Windows / macOS / Linux
+**Windows**: [Download ZIP](https://github.com/tooplick/qq-music-download/releases/latest/download/songs_download_windows.zip)
 
-## Quick Installation
+### From Source
 
 ```bash
-# Clone the project
-git clone --depth=1 https://github.com/tooplick/qq_music_download
-cd qq_music_download
-
-# Install dependencies
+git clone https://github.com/tooplick/qq-music-download
+cd qq-music-download
 pip install -r requirements.txt
+
+python credential.py  # Login
+python song.py        # Single song
+python songlist.py    # Playlist
 ```
 
-Or install using `pyproject.toml`:
+👉 See [Usage Guide](./usage)
 
-```bash
-pip install .
-```
-
-## Configuration
+## ⚙️ Configuration
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
-| `COVER_SIZE` | 800 | Cover image size (150/300/500/800) |
-| `DOWNLOAD_TIMEOUT` | 30 | Network request timeout (seconds) |
-| `CREDENTIAL_FILE` | `qqmusic_cred.pkl` | Credential file location |
-| `MUSIC_DIR` | `./music` | Music file save directory |
-| `SEARCH_RESULTS_COUNT` | 5 | Number of search results |
+| `COVER_SIZE` | `800` | Cover size |
+| `MUSIC_DIR` | `./music` | Download dir |
+| `EXTERNAL_API_URL` | `api.ygking.top` | External API |
 
-## Source Code
+👉 See [Configuration](./config)
 
-- **GitHub**: [tooplick/qq_music_download](https://github.com/tooplick/qq_music_download)
-- **License**: GPL-3.0
+## 🔗 Links
+
+- [GitHub](https://github.com/tooplick/qq-music-download)
+- [Releases](https://github.com/tooplick/qq-music-download/releases)
+- [External API](/en/qq-music-api/)
+
+## ⚠️ Disclaimer
+
+For learning only. Delete music within 24 hours. [GPL-3.0](https://github.com/tooplick/qq_music_download/blob/main/LICENSE)

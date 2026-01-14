@@ -8,12 +8,16 @@ hero:
   actions:
     - theme: brand
       text: 开始浏览
-      link: /qq-music-player/
+      link: /qq-music-api/
     - theme: alt
       text: GitHub
       link: https://github.com/tooplick
 
 features:
+  - icon: 🔌
+    title: QQ Music API
+    details: 基于 Cloudflare Workers + D1 的 QQ 音乐 API 服务，支持搜索、歌曲、歌词、专辑等接口。
+    link: /qq-music-api/
   - icon: 🎵
     title: QQ-Music-Player
     details: QQ音乐Web播放器 Serverless版本，基于Cloudflare Pages的纯前端架构。
@@ -26,8 +30,4 @@ features:
     title: QQ音乐下载器
     details: Python CLI工具，支持单曲搜索下载和歌单批量下载。
     link: /qq-music-download/
-  - icon: 🌐
-    title: QQMusic Web
-    details: 基于Flask的在线音乐播放器，支持Docker一键部署。
-    link: /qqmusic-web/
 ---
