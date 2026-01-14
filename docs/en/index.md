@@ -18,7 +18,7 @@ features:
     details: QQ Music API service based on Cloudflare Workers + D1, supporting search, songs, lyrics, albums and more.
     link: /en/qq-music-api/
   - icon: 🎵
-    title: QQ-Music-Player
+    title: QQ Music Player
     details: Modern QQ Music Web Player, Serverless Edition built on Cloudflare Pages.
     link: /en/qq-music-player/
   - icon: 🤖

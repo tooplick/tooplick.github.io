@@ -19,7 +19,7 @@ features:
     details: 基于 Cloudflare Workers + D1 的 QQ 音乐 API 服务，支持搜索、歌曲、歌词、专辑等接口。
     link: /qq-music-api/
   - icon: 🎵
-    title: QQ-Music-Player
+    title: QQ Music Player
     details: QQ音乐Web播放器 Serverless版本，基于Cloudflare Pages的纯前端架构。
     link: /qq-music-player/
   - icon: 🤖
