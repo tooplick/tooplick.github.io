@@ -20,14 +20,19 @@
 git clone https://github.com/tooplick/qq-music-download
 cd qq-music-download
 pip install -r requirements.txt
-
+```
 # 登录
+```bash
 python credential.py
+```
 
 # 单曲下载
+```bash
 python song.py
+```
 
 # 歌单下载
+```bash
 python songlist.py
 ```
 

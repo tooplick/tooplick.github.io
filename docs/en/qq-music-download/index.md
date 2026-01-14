@@ -20,9 +20,14 @@ Python-based QQ Music download tool.
 git clone https://github.com/tooplick/qq-music-download
 cd qq-music-download
 pip install -r requirements.txt
-
+```
+```bash
 python credential.py  # Login
+```
+```bash
 python song.py        # Single song
+```
+```bash
 python songlist.py    # Playlist
 ```
 
