@@ -108,14 +108,6 @@ GET /api/top?id=4&num=50
 
 ---
 
-## Credential API
-
-### GET /api/credential
-
-Returns current credential info (masked).
-
----
-
 ## Error Codes
 
 | Code | Description |

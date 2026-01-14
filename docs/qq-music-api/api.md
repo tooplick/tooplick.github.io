@@ -359,30 +359,6 @@ GET /api/top?id=4&num=50
 
 ---
 
-## 凭证 API
-
-### GET /api/credential
-
-获取当前凭证信息（脱敏显示）。
-
-#### 响应示例
-
-```json
-{
-  "code": 0,
-  "credential": {
-    "musicid": 123456789,
-    "musickey": "Q_H_L_****",
-    "openid": "****",
-    "login_type": 2,
-    "expired_at": 1704067200
-  },
-  "status": "valid"
-}
-```
-
----
-
 ## 错误码
 
 | 错误码 | 说明 |
