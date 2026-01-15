@@ -10,10 +10,10 @@
 
 | 项目 | 描述 | 仓库 |
 |------|------|------|
-| **QQ-Music-Player** | QQ音乐Web播放器 Serverless版本 | [GitHub](https://github.com/tooplick/QQ-Music-Player) |
+| **QQ Music API** | Cloudflare Workers QQ音乐API | [GitHub](https://github.com/tooplick/qq-music-api) |
+| **QQ Music Player** | QQ音乐Web播放器 Serverless版本 | [GitHub](https://github.com/tooplick/QQ-Music-Player) |
 | **Nekro QQ音乐点歌** | Nekro Agent QQ音乐点歌插件 | [GitHub](https://github.com/tooplick/nekro_order_qqmusic) |
-| **QQ音乐下载器** | Python CLI 下载工具 | [GitHub](https://github.com/tooplick/qq_music_download) |
-| **QQMusic Web** | Flask 在线音乐播放器 | [GitHub](https://github.com/tooplick/qqmusic_web) |
+| **QQ音乐下载器** | Python CLI 下载工具 | [GitHub](https://github.com/tooplick/qq-music-download) |
 
 ## 本地开发
 
