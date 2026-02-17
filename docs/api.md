@@ -111,17 +111,20 @@ GET /api/search?keyword=周杰伦&type=song&num=10&page=1
 | 参数 | 类型 | 必填 | 默认值 | 说明 |
 |------|------|:----:|--------|------|
 | `mid` | string | ✅ | - | 歌曲 MID，多个用逗号分隔 |
-| `quality` | string | - | `128` | 音质 |
+| `quality` | string | - | `flac` | 音质 |
 
 #### quality 可选值
 
 | 值 | 说明 | 格式 |
 |----|------|------|
-| `128` | 标准音质 | MP3 128kbps |
-| `320` | 高品质 | MP3 320kbps |
+| `master` | 臻品母带 24Bit 192kHz | FLAC |
+| `atmos` / `atmos_2` | 臻品全景声 16Bit 44.1kHz | FLAC |
+| `atmos_51` | 臻品音质 16Bit 44.1kHz | FLAC |
 | `flac` | 无损音质 | FLAC |
+| `320` | 高品质 | MP3 320kbps |
+| `128` | 标准音质 | MP3 128kbps |
 
-> 如果请求的音质不可用，会自动降级（flac → 320 → 128）。
+> 如果请求的音质不可用，会自动按上表从上到下降级。
 
 #### 请求示例
 
