@@ -48,7 +48,7 @@ Access-Control-Allow-Headers: Content-Type
 |------|------|:----:|--------|------|
 | `keyword` | string | ✅ | - | 搜索关键词 |
 | `type` | string | - | `song` | 搜索类型 |
-| `num` | int | - | `20` | 返回数量 (1-100) |
+| `num` | int | - | `20` | 返回数量 (1-60) |
 | `page` | int | - | `1` | 页码 |
 
 #### type 可选值

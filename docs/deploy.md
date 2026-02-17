@@ -4,7 +4,6 @@
 
 ## 前置要求
 
-- GitHub 账户
 - Cloudflare 账户 (免费即可)
 - QQ 音乐凭证 (可通过 [qq-music-download](https://github.com/tooplick/qq-music-download) 获取)
 
