@@ -4,7 +4,7 @@
 
 基于 VitePress 构建的 [QQ Music API](https://github.com/tooplick/qq-music-api) 项目文档和调用示例。
 
-🌐 **在线访问**: [https://tooplick.github.io](https://tooplick.github.io)
+🌐 **在线访问**: [doc.ygking.top](https://doc.ygking.top)
 
 ## 文档内容
 
