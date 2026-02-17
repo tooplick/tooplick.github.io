@@ -1,19 +1,20 @@
-# QQ Music API 项目文档
+# QQ Music API 文档
 
 [![Deploy VitePress](https://github.com/tooplick/tooplick.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/tooplick/tooplick.github.io/actions/workflows/deploy.yml)
 
-基于 VitePress 构建的项目文档网站，支持中英文切换。
+基于 VitePress 构建的 [QQ Music API](https://github.com/tooplick/qq-music-api) 项目文档和调用示例。
 
 🌐 **在线访问**: [https://tooplick.github.io](https://tooplick.github.io)
 
-## 包含项目
+## 文档内容
 
-| 项目 | 描述 | 仓库 |
-|------|------|------|
-| **QQ Music API** | Cloudflare Workers QQ音乐API | [GitHub](https://github.com/tooplick/qq-music-api) |
-| **QQ Music Player** | QQ音乐Web播放器 Serverless版本 | [GitHub](https://github.com/tooplick/QQ-Music-Player) |
-| **Nekro QQ音乐点歌** | Nekro Agent QQ音乐点歌插件 | [GitHub](https://github.com/tooplick/nekro_order_qqmusic) |
-| **QQ音乐下载器** | Python CLI 下载工具 | [GitHub](https://github.com/tooplick/qq-music-download) |
+| 页面 | 说明 |
+|------|------|
+| **介绍** | 项目功能特性和 API 概览 |
+| **部署指南** | Cloudflare Dashboard / Wrangler CLI 两种部署方式 |
+| **凭证获取** | 如何获取 QQ 音乐登录凭证 |
+| **API 接口** | 完整的 API 参数和响应文档 |
+| **调用示例** | cURL / JavaScript / Python 调用示例 |
 
 ## 本地开发
 
@@ -31,7 +32,6 @@ npm run docs:build
 ## 技术栈
 
 - [VitePress](https://vitepress.dev/) v2.0
-- 支持 i18n 中英文切换
 - GitHub Actions 自动部署
 
 ## 部署

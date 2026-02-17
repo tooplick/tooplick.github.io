@@ -2,7 +2,7 @@
 
 如何获取 QQ 音乐登录凭证。
 
-## 方式一：使用 qq-music-download 工具
+## 使用 qq-music-download 工具
 
 推荐使用 [qq-music-download](https://github.com/tooplick/qq-music-download) 工具获取凭证。
 
@@ -14,7 +14,7 @@ cd qq-music-download
 pip install -r requirements.txt
 ```
 
-### 运行登录
+### 运行凭证管理工具
 
 ```bash
 python credential.py
@@ -22,42 +22,30 @@ python credential.py
 
 ### 登录流程
 
-1. 选择登录方式：QQ / 微信 / 手机客户端
+1. 首次运行时，工具会提示选择登录方式：
+   - `1` - QQ 二维码
+   - `2` - 微信二维码
 2. 使用手机扫描终端显示的二维码
 3. 在手机上确认登录
 4. 凭证自动保存到 `qqmusic_cred.pkl`
 
-### 导出凭证
+### 导出凭证 JSON
 
-登录成功后，凭证会保存在 `qqmusic_cred.pkl` 文件中。你可以使用以下 Python 代码导出为 JSON：
+登录成功后，在管理菜单中选择 **4. 导出凭证到JSON**，工具会自动将凭证导出为 JSON 文件：
 
-```python
-import pickle
-import json
-
-with open('qqmusic_cred.pkl', 'rb') as f:
-    cred = pickle.load(f)
-
-credential_json = {
-    "openid": cred.openid,
-    "musicid": str(cred.musicid),
-    "musickey": cred.musickey,
-    "refresh_key": cred.refresh_key,
-    "login_type": str(cred.login_type),
-    "extra_fields": "{}"
-}
-
-print(json.dumps(credential_json, indent=2))
+```
+请选择操作:
+1. 检查凭证状态
+2. 手动刷新凭证
+3. 显示凭证信息
+4. 导出凭证到JSON    ← 选择此项
+5. 重新登录
+6. 退出
 ```
 
-## 方式二：使用 Nekro 插件
+凭证会导出到当前目录，文件名格式为 `qqmusic_credential_<时间戳>.json`。
 
-如果你使用 [nekro_order_qqmusic](https://github.com/tooplick/nekro_order_qqmusic) 插件，可以通过 Web 界面登录。
-
-1. 访问 `http://<服务器IP:端口>/plugins/GeQian.order_qqmusic`
-2. 选择登录方式
-3. 扫码完成登录
-4. 凭证自动保存
+将导出的 JSON 内容粘贴到 Cloudflare Workers 的 `INITIAL_CREDENTIAL` Secret 中即可。
 
 ## 凭证字段说明
 
@@ -79,7 +67,7 @@ print(json.dumps(credential_json, indent=2))
 ## 注意事项
 
 > ⚠️ **重要提示**
-> 
+>
 > - 请使用 **VIP 账号** 获取凭证，否则无法下载高音质歌曲
 > - 凭证包含敏感信息，请妥善保管
 > - 不要将凭证提交到公开的 Git 仓库

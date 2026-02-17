@@ -72,6 +72,7 @@
     "refresh_key": "你的RefreshKey",
     "login_type": "2",
     "extra_fields": "{'musickeyCreateTime': 0, 'keyExpiresIn': 259200}"
+    ...
 }
 ```
 
@@ -86,7 +87,6 @@
 1. 进入 Worker → **Settings** → **Domains & Routes**
 2. 点击 **Add** → **Custom domain**
 3. 输入你的域名
-4. 按提示配置 DNS
 
 ## 方式二：Wrangler CLI 部署
 

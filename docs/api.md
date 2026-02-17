@@ -10,6 +10,8 @@
 https://api.ygking.top
 ```
 
+> 请替换为你自己的部署地址。
+
 ### 响应格式
 
 所有 API 返回 JSON 格式，基础结构如下：
@@ -102,7 +104,7 @@ GET /api/search?keyword=周杰伦&type=song&num=10&page=1
 
 ### GET /api/song/url
 
-获取歌曲播放链接。
+获取歌曲播放链接。支持批量获取，自动降级音质。
 
 #### 请求参数
 
@@ -118,6 +120,8 @@ GET /api/search?keyword=周杰伦&type=song&num=10&page=1
 | `128` | 标准音质 | MP3 128kbps |
 | `320` | 高品质 | MP3 320kbps |
 | `flac` | 无损音质 | FLAC |
+
+> 如果请求的音质不可用，会自动降级（flac → 320 → 128）。
 
 #### 请求示例
 
@@ -170,8 +174,13 @@ GET /api/song/detail?mid=0039MnYb0qxYhV
     "mid": "0039MnYb0qxYhV",
     "id": 97773,
     "title": "晴天",
-    "singer": [...],
-    "album": {...},
+    "singer": [
+      { "mid": "0025NhlN2yWrP4", "name": "周杰伦" }
+    ],
+    "album": {
+      "mid": "002fRO0N4FftzY",
+      "name": "叶惠美"
+    },
     "interval": 269,
     "genre": 1,
     "language": 0,
@@ -179,6 +188,47 @@ GET /api/song/detail?mid=0039MnYb0qxYhV
   }
 }
 ```
+
+---
+
+### GET /api/song/cover
+
+获取歌曲封面图片。返回 302 重定向到实际图片 URL。
+
+#### 请求参数
+
+| 参数 | 类型 | 必填 | 默认值 | 说明 |
+|------|------|:----:|--------|------|
+| `mid` | string | ✅* | - | 歌曲 MID（自动获取专辑信息） |
+| `album_mid` | string | ✅* | - | 专辑 MID（直接获取封面） |
+| `size` | int | - | `300` | 图片尺寸 |
+| `validate` | bool | - | `true` | 是否验证图片可用性 |
+
+> *`mid` 和 `album_mid` 二选一
+
+#### size 可选值
+
+| 值 | 说明 |
+|----|------|
+| `150` | 小图 (150×150) |
+| `300` | 中图 (300×300, 默认) |
+| `500` | 大图 (500×500) |
+| `800` | 超大图 (800×800) |
+
+#### 请求示例
+
+```bash
+# 通过歌曲 MID
+GET /api/song/cover?mid=0039MnYb0qxYhV&size=300
+
+# 通过专辑 MID
+GET /api/song/cover?album_mid=002fRO0N4FftzY&size=500
+```
+
+#### 响应说明
+
+- 成功：返回 HTTP 302 重定向到图片 URL
+- 可直接用于 `<img>` 标签的 `src` 属性
 
 ---
 
@@ -190,15 +240,24 @@ GET /api/song/detail?mid=0039MnYb0qxYhV
 
 #### 请求参数
 
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|:----:|------|
-| `mid` | string | ✅* | 歌曲 MID |
-| `id` | int | ✅* | 歌曲 ID |
+| 参数 | 类型 | 必填 | 默认值 | 说明 |
+|------|------|:----:|--------|------|
+| `mid` | string | ✅* | - | 歌曲 MID |
+| `id` | int | ✅* | - | 歌曲 ID |
+| `qrc` | bool | - | `false` | 是否获取逐字歌词 (QRC XML 格式) |
+| `trans` | bool | - | `false` | 是否获取翻译歌词 |
+| `roma` | bool | - | `false` | 是否获取罗马音歌词 (XML 格式) |
+
+> *`mid` 和 `id` 二选一
 
 #### 请求示例
 
 ```bash
+# 基础歌词
 GET /api/lyric?mid=0039MnYb0qxYhV
+
+# 逐字歌词 + 翻译 + 罗马音
+GET /api/lyric?mid=0039MnYb0qxYhV&qrc=1&trans=1&roma=1
 ```
 
 #### 响应示例
@@ -208,15 +267,19 @@ GET /api/lyric?mid=0039MnYb0qxYhV
   "code": 0,
   "data": {
     "lyric": "[00:00.00]晴天 - 周杰伦\n[00:01.00]词：周杰伦\n...",
-    "trans": "[00:00.00]Sunny Day\n..."
+    "trans": "[00:00.00]Sunny Day\n...",
+    "roma": "<QrcInfos>...</QrcInfos>"
   }
 }
 ```
 
-#### 说明
+#### 返回字段说明
 
-- `lyric`: 原版歌词 (LRC 格式)
-- `trans`: 翻译歌词 (如有)
+| 字段 | 说明 |
+|------|------|
+| `lyric` | 歌词（LRC 格式，开启 `qrc` 时为 QRC XML） |
+| `trans` | 翻译歌词（需传 `trans=1`） |
+| `roma` | 罗马音歌词（需传 `roma=1`，XML 格式） |
 
 ---
 
@@ -246,10 +309,19 @@ GET /api/album?mid=002fRO0N4FftzY
   "data": {
     "mid": "002fRO0N4FftzY",
     "name": "叶惠美",
-    "singer": {...},
+    "singer": {
+      "mid": "0025NhlN2yWrP4",
+      "name": "周杰伦"
+    },
     "publish_date": "2003-07-31",
     "song_count": 11,
-    "songs": [...]
+    "songs": [
+      {
+        "mid": "...",
+        "title": "...",
+        "singer": [...]
+      }
+    ]
   }
 }
 ```
@@ -282,9 +354,18 @@ GET /api/playlist?id=8052190267
   "data": {
     "id": 8052190267,
     "name": "周杰伦精选",
-    "creator": {...},
+    "creator": {
+      "name": "...",
+      "id": 0
+    },
     "song_count": 50,
-    "songs": [...]
+    "songs": [
+      {
+        "mid": "...",
+        "title": "...",
+        "singer": [...]
+      }
+    ]
   }
 }
 ```
@@ -318,7 +399,13 @@ GET /api/singer?mid=0025NhlN2yWrP4
     "mid": "0025NhlN2yWrP4",
     "name": "周杰伦",
     "fans": 10000000,
-    "songs": [...]
+    "songs": [
+      {
+        "mid": "...",
+        "title": "...",
+        "singer": [...]
+      }
+    ]
   }
 }
 ```
@@ -333,10 +420,10 @@ GET /api/singer?mid=0025NhlN2yWrP4
 
 #### 请求参数
 
-| 参数 | 类型 | 必填 | 说明 |
-|------|------|:----:|------|
-| `id` | int | - | 排行榜 ID，不传则返回榜单列表 |
-| `num` | int | - | 返回歌曲数量 (默认 100) |
+| 参数 | 类型 | 必填 | 默认值 | 说明 |
+|------|------|:----:|--------|------|
+| `id` | int | - | - | 排行榜 ID，不传则返回榜单列表 |
+| `num` | int | - | `100` | 返回歌曲数量 |
 
 #### 常用排行榜 ID
 
@@ -355,6 +442,34 @@ GET /api/top
 
 # 获取指定排行榜
 GET /api/top?id=4&num=50
+```
+
+---
+
+## 凭证 API
+
+### GET /api/credential
+
+查看当前凭证状态。
+
+#### 请求示例
+
+```bash
+GET /api/credential
+```
+
+#### 响应示例
+
+```json
+{
+  "code": 0,
+  "data": {
+    "musicid": "123456",
+    "login_type": "2",
+    "expires_in": 259200,
+    "last_refresh": "2026-01-01T00:00:00Z"
+  }
+}
 ```
 
 ---

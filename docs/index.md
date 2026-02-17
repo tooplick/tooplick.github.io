@@ -2,32 +2,35 @@
 layout: home
 
 hero:
-  name: "QQ music api"
-  text: "项目文档"
-  tagline: 开源 · 学习 · 分享
+  name: "QQ Music API"
+  text: "By Cloudflare Workers"
+  tagline: 免费部署 · 全球加速 · 开箱即用的 QQ 音乐 API 服务
   actions:
     - theme: brand
-      text: 开始浏览
-      link: /qq-music-api/
+      text: 快速上手
+      link: /guide
     - theme: alt
-      text: GitHub
-      link: https://github.com/tooplick
+      text: API 接口
+      link: /api
+    - theme: alt
+      text: 调用示例
+      link: /examples
 
 features:
-  - icon: 🔌
-    title: QQ Music API
-    details: 基于 Cloudflare Workers + D1 的 QQ 音乐 API 服务，支持搜索、歌曲、歌词、专辑等接口。
-    link: /qq-music-api/
+  - icon: 🔍
+    title: 搜索
+    details: 搜索歌曲、歌手、专辑、歌单，支持分页，返回结构化数据。
+    link: /api#搜索-api
   - icon: 🎵
-    title: QQ Music Player
-    details: QQ音乐Web播放器 Serverless版本，基于Cloudflare Pages的纯前端架构。
-    link: /qq-music-player/
-  - icon: 🤖
-    title: Nekro QQ音乐点歌
-    details: 基于Nekro Agent框架的QQ音乐点歌插件，让AI助手为你点歌。
-    link: /nekro-order-qqmusic/
-  - icon: 📥
-    title: QQ音乐下载器
-    details: Python CLI工具，支持单曲搜索下载和歌单批量下载。
-    link: /qq-music-download/
+    title: 歌曲播放
+    details: 获取播放链接、封面图片，支持 128k / 320k / FLAC 多种音质自动降级。
+    link: /api#歌曲-api
+  - icon: 📝
+    title: 歌词解密
+    details: 自动解密 LRC / QRC 格式歌词，支持逐字歌词、翻译和罗马音。
+    link: /api#歌词-api
+  - icon: 📀
+    title: 专辑 · 歌单 · 排行榜
+    details: 获取专辑/歌单详情及歌曲列表，浏览各类排行榜。
+    link: /api#专辑-api
 ---
