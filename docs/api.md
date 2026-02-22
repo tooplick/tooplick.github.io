@@ -449,33 +449,6 @@ GET /api/top?id=4&num=50
 
 ---
 
-## 凭证 API
-
-### GET /api/credential
-
-查看当前凭证状态。
-
-#### 请求示例
-
-```bash
-GET /api/credential
-```
-
-#### 响应示例
-
-```json
-{
-  "code": 0,
-  "data": {
-    "musicid": "123456",
-    "login_type": "2",
-    "expires_in": 259200,
-    "last_refresh": "2026-01-01T00:00:00Z"
-  }
-}
-```
-
----
 
 ## 错误码
 
