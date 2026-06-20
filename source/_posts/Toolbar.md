@@ -7,7 +7,7 @@ keywords: Toolbar
 top_img: img/default-top-bg.jpg
 copyright_author: https://github.com/tooplick
 copyright_author_href: https://github.com/tooplick
-copyright_url: https://ygking.top/WiFi-hacking
+copyright_url: https://ygking.top/Toolbar
 ---
 
 # 工具栏
@@ -26,7 +26,7 @@ copyright_url: https://ygking.top/WiFi-hacking
 
 ## Study
 
-- [VMware-Workstation.exe](https://github.com/tooplick/Cloudfire_pages/releases/download/v1/VMware-workstation-full-17.6.4.exe)
+- [VMware-Workstation.exe](https://github.com/tooplick/tooplick.github.io/releases/download/v1/VMware-workstation-full-17.6.4.exe)
 
 - [Navicat.zip](https://github.com/shuhongfan/NavicatCracker/archive/refs/heads/main.zip)
 
@@ -38,7 +38,7 @@ copyright_url: https://ygking.top/WiFi-hacking
 
 - [AyuGram.zip](https://github.com/AyuGram/AyuGramDesktop/releases/download/v6.7.8/AyuGram.zip)
 
-- [Recoverit.zip](https://github.com/tooplick/Cloudfire_pages/releases/download/v1/Recoverit.zip)
+- [Recoverit.zip](https://github.com/tooplick/tooplick.github.io/releases/download/v1/Recoverit.zip)
 
 
 
