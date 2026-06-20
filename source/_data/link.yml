@@ -1,0 +1,18 @@
+- class_name: 友情链接
+  class_desc: 
+  link_list:
+    - name: 运阳的小窝
+      link: https://lyuy.top/
+      avatar: https://avatars.githubusercontent.com/u/132762661
+      descr: 人生苦短，我用python
+
+    - name: Lucas的小博客
+      link: https://blog.lris625.top/
+      avatar: https://pic1.imgdb.cn/item/68fe309a3203f7be00a0c198.png
+      descr: 欲买桂花同载酒，终不似，少年游
+      screenshot: https://pic1.imgdb.cn/item/68f9e7e93203f7be0091d1ad.png
+
+    - name: flingyp
+      link: https://me.flingyp.online/
+      avatar: https://me.flingyp.online/avatar.png
+      descr: 没有目标的生活犹如无舵之舟
