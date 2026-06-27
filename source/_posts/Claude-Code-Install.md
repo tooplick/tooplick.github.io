@@ -86,7 +86,7 @@ claude --version
 {
   "env": {
     "ANTHROPIC_BASE_URL": "https://token-plan-cn.xiaomimimo.com/anthropic",
-    "ANTHROPIC_AUTH_TOKEN": "tp-cuc8c1nu486sbsrpc7f9yqsecangwgve0a8zwddao1jlvj30",
+    "ANTHROPIC_AUTH_TOKEN": "tp-colqbsh8uofcj1or7vkaah3sf716kd9qc4a0ts7eoelkmyjo",
     "ANTHROPIC_MODEL": "mimo-v2.5-pro",
     "ANTHROPIC_DEFAULT_SONNET_MODEL": "mimo-v2.5-pro",
     "ANTHROPIC_DEFAULT_OPUS_MODEL": "mimo-v2.5-pro",
