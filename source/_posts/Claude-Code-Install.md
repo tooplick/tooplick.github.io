@@ -85,15 +85,16 @@ claude --version
 ```JSON
 {
   "env": {
-    "ANTHROPIC_BASE_URL": "https://token-plan-cn.xiaomimimo.com/anthropic",
-    "ANTHROPIC_AUTH_TOKEN": "tp-colqbsh8uofcj1or7vkaah3sf716kd9qc4a0ts7eoelkmyjo",
-    "ANTHROPIC_MODEL": "mimo-v2.5-pro",
-    "ANTHROPIC_DEFAULT_SONNET_MODEL": "mimo-v2.5-pro",
-    "ANTHROPIC_DEFAULT_OPUS_MODEL": "mimo-v2.5-pro",
-    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "mimo-v2.5-pro"
-  },
-  "enabledPlugins": {
-    "superpowers@claude-plugins-official": true
+    "ANTHROPIC_AUTH_TOKEN": "sk-mimo-0859b8ff38973d310dca4672e65d6ef8d191a345c19427a56fe13ad716a7e051",
+    "ANTHROPIC_BASE_URL": "https://fufu.iqach.top/anthropic",
+    "ANTHROPIC_DEFAULT_FABLE_MODEL": "mimo-v2.5-pro[1M]",
+    "ANTHROPIC_DEFAULT_FABLE_MODEL_NAME": "mimo-v2.5-pro",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "mimo-v2.5-pro",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL_NAME": "mimo-v2.5-pro",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "mimo-v2.5[1M]",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL_NAME": "mimo-v2.5",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "mimo-v2.5-pro[1M]",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL_NAME": "mimo-v2.5-pro"
   },
   "includeCoAuthoredBy": false
 }
