@@ -13,6 +13,8 @@ copyright_url: https://ygking.top/Portal/
 
 Home：[YGKing.top](https://ygking.top/)  
 
+Mail：[mail.ygking.top](https://mail.ygking.top/)  
+
 New Api：[openai.ygking.top](https://openai.ygking.top/)
 
 For you：[say.ygking.top](http://say.ygking.top)  
